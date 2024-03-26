@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit User</title>
+</head>
+<body>
+<style type="text/css">
+    .controls {
+        display: flex;
+        justify-content: flex-end;
+    }
+</style>
+<header>
+    <h1 style="text-align: center">Edit User</h1>
+    <div class="controls">
+        <form th:action="@{/logout}" th:method="POST">
+            <input type="submit" value="Logout">
+        </form>
+    </div>
+    <hr/>
+</header>
+
+<form th:method="POST" th:action="@{/admin/edit?id={id}(id=${user.getId()})}" th:object="${user}" style="text-align: center">
+    <div style="margin-bottom: 5px">
+        <label for="name">Enter Username: </label>
+        <input type="text" th:field="*{username}" id="name"/>
+    </div>
+    <div style="margin-bottom: 5px">
+        <label for="age">Enter Birthdate: </label>
+        <input type="text" th:field="*{yearOfBirth}" id="age"/>
+    </div>
+    <div style="margin-bottom: 5px">
+        <label for="password">Enter Password: </label>
+        <input type="password" th:field="*{password}" id="password"/>
+    </div>
+    <p>
+        <label>Roles:
+            <input type="checkbox" name="role"
+                   th:each="role : ${role}"
+                   th:text="${role.getName()}"
+                   th:value="${role.getId()}"
+                   th:field="*{roles}">
+        </label>
+    </p>
+
+    <input type="submit" value="Update!">
+</form>
+
+
+
+</body>
+</html>

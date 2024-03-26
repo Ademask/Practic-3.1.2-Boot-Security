@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <title>User</title>
+</head>
+<body>
+<style type="text/css">
+    .controls {
+        display: flex;
+        justify-content: flex-end;
+    }
+</style>
+<header>
+    <h1 style="text-align: center">User Info</h1>
+    <div class="controls">
+        <form th:action="@{/logout}" th:method="POST">
+            <input type="submit" value="Logout">
+        </form>
+    </div>
+    <hr/>
+</header>
+
+<div style="font-size: 16px; text-align: center">
+<a th:text="'Ваш id -  ' + ${user.getId()}">value</a>
+<br/>
+<a th:text="'Ваше имя пользователя -  ' + ${user.getUsername()}">value</a>
+<br/>
+<a th:text="'Ваша дата рождения - ' + ${user.getYearOfBirth()} + ' год.'">value</a>
+<br/>
+    <p style="font-size: 0">
+        <span style="font-size: initial">Ваши роли - </span>
+        <span style="font-size: initial" th:each="role : ${user.getRoles()}" th:if="${role.getName() == 'ROLE_ADMIN'}">Admin</span>
+        <span style="font-size: initial" th:if="${user.getRoles().size() == 2}">, </span>
+        <span style="font-size: initial" th:each="role : ${user.getRoles()}" th:if="${role.getName() == 'ROLE_USER'}">User</span>
+    </p>
+</div>
+
+
+</body>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>All Users</title>
+</head>
+<body>
+
+<style type="text/css">
+  .controls {
+    display: flex;
+    justify-content: space-between;
+  }
+</style>
+
+<header>
+  <h1 style="text-align: center">People Table</h1>
+  <div class="controls">
+    <a href="/user"><button type="button">Your Info</button></a>
+    <form th:action="@{/logout}" th:method="POST">
+      <input type="submit" value="Logout">
+    </form>
+  </div>
+  <hr/>
+</header>
+
+
+
+<div style="text-align: center">
+  <form action="/admin/new" method="GET">
+    <input type="submit" value="Create New User!">
+  </form>
+</div>
+<br/>
+
+<table border="1" align="center" style="margin: 0 auto" >
+  <tr>
+    <th>id</th>
+    <th>Name</th>
+    <th>Password</th>
+    <th>Birth Date</th>
+    <th>User Role</th>
+    <th></th>
+    <th></th>
+  </tr>
+  <tr th:each="user : ${users}">
+    <td >
+      <a th:href="@{/admin/user?id={id}(id=${user.getId()})}" th:text="${user.getId()}">link</a>
+    </td>
+    <td th:text="${user.getUsername()}">id</td>
+    <td th:text="${user.getPassword()}">id</td>
+    <td th:text="${user.getYearOfBirth()}">id</td>
+    <td>
+      <p style="font-size: 0">
+      <span style="font-size: initial" th:each="role : ${user.getRoles()}" th:if="${role.getName() == 'ROLE_ADMIN'}">Admin</span>
+      <span style="font-size: initial" th:if="${user.getRoles().size() == 2}">, </span>
+      <span style="font-size: initial" th:each="role : ${user.getRoles()}" th:if="${role.getName() == 'ROLE_USER'}">User</span>
+      </p>
+    </td>
+    <td>
+      <a th:href="@{/admin/edit?id={id}(id=${user.getId()})}"><button type="button">Edit</button></a>
+    </td>
+    <td>
+      <form th:method="POST" th:action="@{/admin/delete?id={id}(id=${user.getId()})}">
+        <input type="submit" value="Delete">
+      </form>
+  </tr>
+</table>
+
+
+
+</body>
+</html>
