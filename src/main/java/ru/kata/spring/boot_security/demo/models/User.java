@@ -1,9 +1,9 @@
 package ru.kata.spring.boot_security.demo.models;
 
-import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "Person")
@@ -31,9 +31,10 @@ public class User {
     public User() {
     }
 
-    public User(String username, int yearOfBirth) {
+    public User(String username, int yearOfBirth, String password) {
         this.username = username;
         this.yearOfBirth = yearOfBirth;
+        this.password = password;
     }
 
     public int getId() {
@@ -84,5 +85,18 @@ public class User {
                 ", yearOfBirth=" + yearOfBirth +
                 ", password='" + password + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return id == user.id && yearOfBirth == user.yearOfBirth && Objects.equals(username, user.username) && Objects.equals(password, user.password) && Objects.equals(roles, user.roles);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, username, yearOfBirth, password, roles);
     }
 }

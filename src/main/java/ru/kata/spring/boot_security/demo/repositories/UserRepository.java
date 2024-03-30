@@ -8,7 +8,7 @@ import ru.kata.spring.boot_security.demo.models.User;
 import java.util.Optional;
 
 @Repository
-public interface PeopleRepository extends JpaRepository<User, Integer> {
+public interface UserRepository extends JpaRepository<User, Integer> {
     @Query("SELECT u FROM  User u left join fetch u.roles where u.username=:username")
     Optional<User> findByUsername(String username);
 }

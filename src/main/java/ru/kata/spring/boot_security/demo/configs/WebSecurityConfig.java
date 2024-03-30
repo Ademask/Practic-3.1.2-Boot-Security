@@ -18,6 +18,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private final SuccessUserHandler successUserHandler;
     private final PersonDetailsService personDetailsService;
 
+
     @Autowired
     public WebSecurityConfig(SuccessUserHandler successUserHandler, PersonDetailsService personDetailsService) {
         this.successUserHandler = successUserHandler;
